@@ -1,0 +1,40 @@
+<h1 class="text-center">Sign Up</h1>
+<form novalidate #signUpForm="ngForm" (ngSubmit)="signUp(signUpForm)">
+  <div class="form-group">
+    <label>Email</label>
+    <input
+      type="text"
+      class="form-control "
+      name="email"
+      #em="ngModel"
+      [(ngModel)]="user.email"
+      required
+      pattern="[^@]+@[^\.]+\..+"
+    />
+    <div *ngIf="em.errors && (em.dirty || em.touched)">
+      <div [hidden]="!em.errors.required">
+        Email is required.
+      </div>
+      <div [hidden]="em.valid">
+        Email is invalid.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input
+      type="password"
+      class="form-control "
+      name="password"
+      #pw="ngModel"
+      [(ngModel)]="user.password"
+      required
+    />
+    <div *ngIf="pw.errors && (pw.dirty || pw.touched)">
+      <div [hidden]="!pw.errors.required">
+        Password is required.
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>

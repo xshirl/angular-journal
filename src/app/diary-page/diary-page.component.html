@@ -1,0 +1,48 @@
+<h1 class="text-center">Diary</h1>
+<div class="btn-group" role="group" id="add-group">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="openAddModal(addTemplate)"
+  >
+    Add Diary
+  </button>
+</div>
+<ng-template #addTemplate>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left">Add Diary</h2>
+  </div>
+  <div class="modal-body">
+    <app-diary-form (saved)="closeModals()"></app-diary-form>
+  </div>
+</ng-template>
+<ng-template #editTemplate>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left">Edit Diary</h2>
+  </div>
+  <div class="modal-body">
+    <app-diary-form
+      [edit]="true"
+      (saved)="closeModals()"
+      [selectedDiary]="selectedDiary"
+    ></app-diary-form>
+  </div>
+</ng-template>
+<br />
+<div class="card" *ngFor="let d of diarieEntries">
+  <div class="card-body">
+    <h5 class="card-title">{{ d.name }}</h5>
+    <p class="card-text">
+      {{ d.date | date }}
+    </p>
+    <div class="card-text">
+      {{ d.content }}
+    </div>
+    <button class="btn btn-primary" (click)="openEditModal(editTemplate, d)">
+      Edit
+    </button>
+    <button class="btn btn-primary" (click)="deleteDiary(d.id)">
+      Delete
+    </button>
+  </div>
+</div>

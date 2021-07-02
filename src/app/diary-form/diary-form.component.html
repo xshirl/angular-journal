@@ -1,0 +1,56 @@
+<form novalidate #diaryForm="ngForm" (ngSubmit)="save(diaryForm)">
+  <div class="form-group">
+    <label>Name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      #name="ngModel"
+      [(ngModel)]="form.name"
+      required
+    />
+    <div *ngIf="name.errors && (name.dirty || name.touched)">
+      <div [hidden]="!name.errors.required">
+        Name is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Date (YYYY-MM-DD format)</label>
+    <input
+      type="text"
+      class="form-control"
+      name="date"
+      #date="ngModel"
+      [(ngModel)]="form.date"
+      required
+      pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+    />
+    <div *ngIf="date.errors && (date.dirty || date.touched)">
+      <div [hidden]="!date.errors.required">
+        Date is required.
+      </div>
+      <div [hidden]="date.valid">
+        Date must be in YYYY-MM-DD format.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Content</label>
+    <textarea
+      type="text"
+      class="form-control"
+      name="content"
+      #content="ngModel"
+      [(ngModel)]="form.content"
+      required
+    >
+    </textarea>
+    <div *ngIf="content.errors && (content.dirty || content.touched)">
+      <div [hidden]="!content.errors.required">
+        Content is required.
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
